@@ -1,0 +1,34 @@
+;; What this vertical's robot physically does, declared for
+;; kotoba.robotics.process (kotoba-lang/robotics). `kbb -M:physics` runs it.
+;;
+;; README "Robotics premise": a workshop scheduling/logistics coordination
+;; robot schedules the sewing/embroidery crew, logs jobs and coordinates
+;; thread/fabric supply; it never sews. Its physical work is feeding the line:
+;; a bundle trolley carries cut work from station to station, and an arm
+;; places thread cones onto the machine's creel.
+;;
+;; Every number without a cited source is marked `estimate` in its :basis.
+;; Replacing an estimate with a sourced value is this bot's growth work.
+{:physics/schema "itonami.physical-ai.spec.v1"
+ :repo "cloud-itonami/cloud-itonami-isco-7533"
+ :cases
+ [{:id :bundle-trolley-between-stations
+   :kind :transport
+   :procedure "bundle trolley carries cut work from the cutting room to the sewing line"
+   :params {:mass-kg 35.0 :distance-m 30.0 :v-max-mps 1.0 :a-max-mps2 0.6
+            :brake-decel-mps2 1.0 :drive-force-n 80.0 :crr 0.02
+            :cog-height-m 0.30 :payload-cog-height-m 0.60 :support-half-length-m 0.30
+            :max-time-s 600.0}
+   :sweep {:param :payload-kg :values [10.0 30.0 60.0 100.0 150.0]}
+   :quantity :cycle-time-s
+   :limit {:max 40.0 :basis "estimate: one delivery must arrive within the line's bundle takt so an operator does not wait"}
+   :boundary {:lo 5.0 :hi 400.0}}
+  {:id :thread-cone-to-creel
+   :kind :manipulator
+   :procedure "arm lifts thread cones from the supply tray onto the embroidery machine's upper creel"
+   :params {:l1-m 0.40 :l2-m 0.35 :m1-kg 3.0 :m2-kg 2.0 :payload-kg 0.5
+            :from [0.45 0.05] :to [0.15 0.65] :steps 400}
+   :sweep {:param :duration-s :values [0.5 0.7 1.0 1.5 2.0]}
+   :quantity :peak-tau1-nm
+   :limit {:max 30.0 :basis "estimate: continuous shoulder torque of a ~3 kg-class desktop collaborative arm"}
+   :boundary {:lo 0.2 :hi 3.0}}]}
