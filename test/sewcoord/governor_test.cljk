@@ -1,5 +1,5 @@
 (ns sewcoord.governor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [sewcoord.store :as store]
             [sewcoord.advisor :as advisor]
             [sewcoord.governor :as governor]))

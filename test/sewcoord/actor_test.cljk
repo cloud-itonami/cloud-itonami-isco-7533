@@ -1,5 +1,5 @@
 (ns sewcoord.actor-test
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [sewcoord.actor :as actor]
             [sewcoord.store :as store]))
 
