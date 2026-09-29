@@ -1,7 +1,7 @@
 (ns sewcoord.store
   "SSoT for the ISCO-08 7533 sewing/embroidery workshop scheduling and
   logistics coordination actor (itonami actor pattern,
-  ADR-2607121000 / CLAUDE.md Actors section; README's 'Robotics
+  ADR-2607121000 / AGENTS.md Actors section; README's 'Robotics
   premise' — a workshop scheduling/logistics coordination robot
   performs crew scheduling, job/commission/progress-record logging
   and thread/fabric-materials supply-order coordination for a
